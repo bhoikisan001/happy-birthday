@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy 02th Birthday, Kisan!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet"/>
+  <style>
+    html, body {
+      height: 100%;
+      overflow: auto;
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to top right, #f8f2f0, #ffe7d6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      padding: 2.5rem;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.25rem;
+      color: #ff6584;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      color: #555;
+    }
+    .balloon {
+      font-size: 2rem;
+      animation: float 3s ease-in-out infinite;
+      display: inline-block;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .button {
+      padding: 0.6rem 1.4rem;
+      border: none;
+      border-radius: 8px;
+      background: #ff6584;
+      color: white;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin: 0.5rem;
+    }
+    .button:hover {
+      background: #e44d6a;
+    }
+    .poem, .transcript {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #333;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .poem.visible, .transcript.visible {
+      opacity: 1;
+    }
+    .balloons-container {
+      position: absolute;
+      bottom: -30px;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      pointer-events: none;
+    }
+    .balloon-pop {
+      animation: pop 0.5s ease-out forwards;
+    }
+    @keyframes pop {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    /* Hide iframe */
+    #vocarooFrame {
+      width: 0;
+      height: 0;
+      border: 0;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎂 Happy 02th Birthday, Kisan! 🎂</h1>
+    <div>
+      <span class="balloon">🎈</span>
+      <span class="balloon" style="animation-delay:.5s">🧁</span>
+      <span class="balloon" style="animation-delay:1s">📚</span>
+    </div>
+    <p>Here’s a special message I recorded just for you.</p>
+
+    <!-- ✅ Hidden Vocaroo iframe -->
+    <iframe id="vocarooFrame" allow="autoplay"></iframe>
+
+    <!-- ✅ Button to trigger Vocaroo audio playback -->
+    <button class="button" onclick="playVocarooAudio()">▶️ Play Voice Message</button>
+
+    <button class="button" onclick="togglePoem()">📜 Read Birthday Poem</button>
+    <div id="poem" class="poem">
+      In pages turned and shadows deep,<br>
+      A quiet soul her secrets keeps.<br>
+      With every chapter, new hope dawns—<br>
+      Happy Birthday, Cupcake. Your story goes on ✨
+    </div>
+
+    <button class="button" onclick="toggleTranscript()">📄 Show Transcript</button>
+    <div id="transcript" class="transcript">
+      [Transcript of the audio message]
+    </div>
+  </div>
+
+  <div class="balloons-container" id="balloons"></div>
+
+  <script>
+    function togglePoem() {
+      document.getElementById('poem').classList.toggle('visible');
+    }
+
+    function toggleTranscript() {
+      document.getElementById('transcript').classList.toggle('visible');
+    }
+
+    function playVocarooAudio() {
+      const frame = document.getElementById("vocarooFrame");
+      // Inject Vocaroo player link to autoplay
+      frame.src = "https://vocaroo.com/embed/1lcLzA7YBydp?autoplay=1";
+    }
+
+    window.onload = function () {
+      launchBalloons();
+    };
+
+    function launchBalloons() {
+      const container = document.getElementById('balloons');
+      for (let i = 0; i < 8; i++) {
+        const b = document.createElement('div');
+        b.className = 'balloon';
+        b.textContent = '🎈';
+        b.style.position = 'absolute';
+        b.style.bottom = '-20px';
+        b.style.left = Math.random() * 90 + '%';
+        b.style.fontSize = Math.random() * 20 + 20 + 'px';
+        b.style.animationDelay = Math.random() + 's';
+        container.appendChild(b);
+        setTimeout(() => b.classList.add('balloon-pop'), 4000);
+      }
+    }
+  </script>
+</body>
+</html>
